@@ -1,0 +1,111 @@
+body{
+	background: white;
+	font-size: 16px;
+	font-family: 'open Sans', sans-serif;
+}
+
+.barra-lateral{
+	background:white;
+	color: #333333;
+	min-width: 300px;
+	min-height: 100vh;
+	padding: 0;
+
+}
+
+.barra-lateral a{
+	color: black;
+}
+
+.barra-lateral .logo{
+	margin-bottom: 2px;
+}
+
+.barra-lateral .logo h2{
+	font-size: 50px;
+	font-family: 'Roboto',"Helvetica Neue";
+	padding: 20px 0;
+	text-align: center;
+	font-weight: 300;
+	margin: 0;
+}
+
+/* ------- MENU----------*/
+
+.barra-lateral .menu a{
+	display:block;
+	padding: 20px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+}
+
+.barra-lateral .menu a:hover{
+	background: #eceef5;
+	text-decoration: none;
+}
+
+.barra-lateral .menu a i {
+	margin-right:20px;
+	font-weight: normal; 
+}
+
+/*--------MAIN----------*/
+
+.img{
+	border-radius: 50%;
+}
+
+.main .columna {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.main .titulo{
+	color:#262a34;
+	font-size: 25px;
+	font-weight: 500;
+	font-family: "Roboto", sans-serif;
+	margin-bottom: 20px;
+}
+.main .widget {
+	margin-bottom: 30px;
+}
+
+/*-------------Cards--------------*/
+.card{
+	margin: 3px;
+	box-shadow: 0px 10px 20px rgba(0,0,0,.08);
+	border-radius: 12px !important;
+}
+
+.card .card-icon{
+	position: absolute;
+	top:20px;
+	right: 20px;
+	width: 60px;
+}
+.card img {
+	vertical-align: middle;
+	border-style:none; 
+} 
+
+.card-body{
+	height: 200px;
+	width: 200px;
+}
+/*------------información--------*/
+.pd-sm-40{
+	padding: 40PX;
+
+}
+.mg-t-20{
+	margin-top:20px;
+
+}
+
+
+
+
+
+
+
+
