@@ -10,6 +10,7 @@
 	RPi WEb Server for DHT captured data with Gage and Graph plot  
 '''
 
+import os
 from datetime import datetime
 
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
@@ -20,23 +21,31 @@ from flask import Flask, render_template, send_file, make_response, request
 app = Flask(__name__)
 
 import sqlite3
-conn=sqlite3.connect('../Database/sensorsData.db')
-curs=conn.cursor()
+
+DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'Database', 'sensorsData.db')
+
+def getConnection():
+	return sqlite3.connect(DB_PATH)
 
 # Retrieve LAST data from database
 
 def getLastData():
+	conn = getConnection()
+	curs = conn.cursor()
 	for row in curs.execute("SELECT * FROM DHT_data ORDER BY timestamp DESC LIMIT 1"):
 		time = str(row[0])
 		temp = row[1]
 		hum = row[2]
-	#conn.close()
+	conn.close()
 	return time, temp, hum
 
 # Get 'x' samples of historical data
 def getHistData (numSamples):
+	conn = getConnection()
+	curs = conn.cursor()
 	curs.execute("SELECT * FROM DHT_data ORDER BY timestamp DESC LIMIT "+str(numSamples))
 	data = curs.fetchall()
+	conn.close()
 	dates = []
 	temps = []
 	hums = []
@@ -60,8 +69,11 @@ def testeData(temps, hums):
 
 # Get Max number of rows (table size)
 def maxRowsTable():
-	for row in curs.execute("select COUNT(temp) from  DHT_data"):
+	conn = getConnection()
+	curs = conn.cursor()
+	for row in curs.execute("select COUNT(temperature) from DHT_data"):
 		maxNumberRows=row[0]
+	conn.close()
 	return maxNumberRows
 
 # Get sample frequency in minutes
@@ -72,7 +84,7 @@ def freqSample():
 	tstamp1 = datetime.strptime(times[1], fmt)
 	freq = tstamp1-tstamp0
 	freq = int(round(freq.total_seconds()/60))
-	return (freq)
+	return max(freq, 1)
 
 # define and initialize global variables
 global numSamples
