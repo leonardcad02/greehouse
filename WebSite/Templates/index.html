@@ -2,16 +2,16 @@
 <html lang = 'es'>
    <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width = device-width, user-scalable=n0, initial-scalable=1.0 maximun-scale=1.0, minium-scalable=1.0">	  	  
+	<meta name="viewport" content="width = device-width, user-scalable=n0, initial-scalable=1.0 maximun-scale=1.0, minium-scalable=1.0">
 	  <link rel="stylesheet" href='../static/css/style.css'/>
 	  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:400,700&display=swap" rel="stylesheet">
 	  <link rel="stylesheet" href="../static/css/fontello.css">
-	 	 
+
 	  <title>Dashboard</title>
    </head>
    <body>
 	<div class="container-fluid">
-		
+
 		<div class="row">
 			<div class="barra-lateral col-1 col-sm-auto">
 				<div class="logo">
@@ -22,18 +22,13 @@
 					<a href="#" ><i class="icon-cog"></i><span>Entradas</span></a>
 					<a href="#" ><i class="icon-clouds-flash"></i><span>reportes</span></a>
 				</nav>
-			</div>		
-		<main class="main col">				
+			</div>
+		<main class="main col">
 			<nav id="navbar-example2" class="navbar navbar-light bg-light">
 					<a class="navbar-brand"></a>
-					<ul class="nav nav-pills">					  
-					  <li class="nav-item">
-						
-					  </li>
+					<ul class="nav nav-pills">
+					  <li class="nav-item"></li>
 					  <li class="nav-item dropdown">
-						<li class="img">
-							<img src="https://www.instagram.com/p/BkddcLuB2hXGkFzcdvCDLlbmJNsF4USuH2DRHU0/" alt="">
-						</li>  
 						<a class="nav-link dropdown-toggle" data-toggle="dropdown"  role="button" aria-haspopup="true" aria-expanded="false">Administrador</a>
 						<div class="dropdown-menu">
 						  <a class="dropdown-item" href="#one">one</a>
@@ -47,89 +42,82 @@
 			<div class="row">
 				<div class="widget nueva_entrada">
 					<h3 class="titulo">Dasboard</h3>
+					<p class="text-muted">Última lectura: {{ time }}</p>
 				</div>
-				</div>	  
+			</div>
 			<div class="row">
-				<div class="columna col-lg-7">					
+				<div class="columna col-lg-7">
 				<div class="contenedor d-flex flex-wrap">
 					<div class="card" style="width: 18rem;">
 							<div class="card-body">
 							  <h5 class="card-title">Temperatura</h5>
-							  <img src="http://qbgrow.com/magen/iot-admin/img/senc.svg" alt="Icon Temperatura" class="card-icon">
-							  <h3 class="card-subtitle mb-2 text-muted">12.5
+							  <h3 class="card-subtitle mb-2 text-muted">{{ temp }}
 									<small>°C</small>
-							  </h3>							  
-							  <a href="#" class="card-link" {{temp}}>Card link</a>							
+							  </h3>
 							</div>
 					</div>
 					<div class="card" style="width: 18rem;">
 							<div class="card-body">
-								  <h5 class="card-title" {{hum}}>Humedad</h5>
-								  <h3 class="card-subtitle mb-2 text-muted">82
+								  <h5 class="card-title">Humedad</h5>
+								  <h3 class="card-subtitle mb-2 text-muted">{{ hum }}
 										<small>%</small>
 								  </h3>
-								  <img src="http://qbgrow.com/magen/iot-admin/img/senc.svg" alt="Icon Energy" class="card-icon" >	 								  
-								  <a href="#" class="card-link">Card link</a>
-								  
 							</div>
 					</div>
-					<div class="card" style="width: 18rem;">
+				</div>
+				<div class="contenedor d-flex flex-wrap">
+					<div class="card" style="width: 100%;">
 							<div class="card-body">
-								  <h5 class="card-title">Nivel</h5>
-								  <h3 class="card-subtitle mb-2 text-muted">50
-										<small>Cm</small>
-								  </h3>								  
-								  <img src="http://qbgrow.com/magen/iot-admin/img/energy.svg" alt="Icon Energy" class="card-icon" >	 
-								  <a href="#" class="card-link">Card link</a>								  
+								  <h5 class="card-title">Temperatura (histórico)</h5>
+								  <img src="{{ url_for('plot_temp') }}" alt="Gráfico de temperatura" class="img-fluid">
 							</div>
 					</div>
-					<div class="card" style="width: 18rem;">
+					<div class="card" style="width: 100%;">
 							<div class="card-body">
-								  <h5 class="card-title">Energia</h5>
-								  <h3 class="card-subtitle mb-2 text-muted">500
-										<small>Watts</small>
-								  </h3>								  
-								  <img src="http://qbgrow.com/magen/iot-admin/img/energy.svg" alt="Icon Energy" class="card-icon" >	 
-								  <a href="#" class="card-link">Card link</a>								  
+								  <h5 class="card-title">Humedad (histórico)</h5>
+								  <img src="{{ url_for('plot_hum') }}" alt="Gráfico de humedad" class="img-fluid">
 							</div>
 					</div>
-					<div class="card">
-							<div class="col-lg-12">
-								Aqui va la estadistica anual
-							</div>
-					</div>
-				</div>			  	
+				</div>
+				<div class="contenedor d-flex flex-wrap">
+					<form action="/" method="post" class="form-inline">
+						<label for="rangeTime" class="mr-2">Rango de tiempo (min):</label>
+						<input type="number" id="rangeTime" name="rangeTime" value="{{ rangeTime }}" class="form-control mr-2">
+						<button type="submit" class="btn btn-primary">Actualizar</button>
+					</form>
+					<p class="text-muted mt-2">Frecuencia de muestreo: {{ freq }} min</p>
+				</div>
 				</div>
 				<div class="columna col-lg-5">
 						<div class="card pd-40" style="width: 18rem;">
-								<div class="card-body">								  
+								<div class="card-body">
 								  <img src="http://qbgrow.com/magen/iot-admin/img/drone.svg" alt="">
 								  <a href="#" class="card-link">Another link</a>
 								</div>
 						</div>
 						<div class="card" style="width: 18rem;">
 								<div class="card-body">
-								  <h5 class="card-title">Conexión de Redes</h5>				
+								  <h5 class="card-title">Conexión de Redes</h5>
 								  <p class="card-text"></p>
 								  <div class="redes">
 									  <a href="">
 										  <i class="fa fa-facebook">
-											  
-										  </i>
-									  </a>
-								  </div>
-								</div>
-						</div>
-				</div>									
+
+									  </i>
+								  </a>
+							  </div>
+							</div>
+					</div>
+				</div>
 			</div>
-			
-			
-		</main>	
+
+
+		</main>
 		</div>
 
 
 	</div>
-	
+
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
    </body>
